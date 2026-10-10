@@ -10,7 +10,7 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // API থেকে প্রোডাক্ট লোড করা
+    // Fetch live product list from API
     fetch("https://api.api-store.workers.dev/api/bazardor/products")
       .then((res) => res.json())
       .then((data) => {
@@ -25,13 +25,13 @@ export default function HomePage() {
       });
   }, []);
 
-  // Section A: আজ দাম বেড়েছে ▲ (Top 6 risers)
+  // Top 6 price risers today
   const risingProducts = [...products]
     .filter((p) => p.change?.dir === "up")
     .sort((a, b) => (b.change?.pct || 0) - (a.change?.pct || 0))
     .slice(0, 6);
 
-  // Section B: আজ দাম কমেছে ▼ (Top 6 fallers)
+  // Top 6 price fallers today
   const fallingProducts = [...products]
     .filter((p) => p.change?.dir === "down")
     .sort((a, b) => (b.change?.pct || 0) - (a.change?.pct || 0))

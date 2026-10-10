@@ -30,7 +30,7 @@ export default function UpdateProfilePage() {
     }
   }, [router]);
 
-  // ছবি ফাইল সিলেক্ট করে Base64 এ কনভার্ট করা
+  // Convert uploaded image file to base64 string
   const handleImageChange = (e) => {
     const file = e.target.files?.[0];
     if (file) {

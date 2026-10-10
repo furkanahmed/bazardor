@@ -1,4 +1,4 @@
-// সংখ্যাকে বাংলা সংখ্যায় রূপান্তরকারী ফাংশন (যেমন: 125 -> ১২৫)
+// Convert numbers to Bengali digits
 export function toBnDigit(num) {
   if (num === null || num === undefined) return '';
   const bnDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
@@ -7,7 +7,7 @@ export function toBnDigit(num) {
     .replace(/[0-9]/g, (digit) => bnDigits[parseInt(digit, 10)]);
 }
 
-// আজকের বাংলা তারিখ তৈরি করার ফাংশন
+// Format current date in Bengali
 export function getBanglaDate() {
   const date = new Date();
   const months = [

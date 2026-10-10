@@ -41,7 +41,6 @@ yarn-error.log*
 next-env.d.ts
 
 # Local private files
-agent.md
 Bazardor _ Assignment-07/
 *.fig
 *.penpot

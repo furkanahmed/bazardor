@@ -52,7 +52,7 @@ function CategoryContent() {
       });
   }, [slug]);
 
-  // Challenge C1: বাংলা সংখ্যার সঠিক সর্টিং
+  // Sort products by numerical price (Asc/Desc)
   const sortedProducts = [...products].sort((a, b) => {
     const priceA = Number(a.today || 0);
     const priceB = Number(b.today || 0);
