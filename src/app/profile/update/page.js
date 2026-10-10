@@ -4,12 +4,13 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { User, ArrowLeft, Save, Sparkles } from "lucide-react";
+import { User, ArrowLeft, Save, Sparkles, Camera, UploadCloud } from "lucide-react";
 
 export default function UpdateProfilePage() {
   const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [image, setImage] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -22,13 +23,30 @@ export default function UpdateProfilePage() {
         const u = JSON.parse(savedUser);
         setName(u.name || "");
         setEmail(u.email || "");
+        setImage(u.image || "");
       } catch (e) {
         router.push("/signin");
       }
     }
   }, [router]);
 
-  // Challenge C3: Update Information Feature
+  // ছবি ফাইল সিলেক্ট করে Base64 এ কনভার্ট করা
+  const handleImageChange = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 2 * 1024 * 1024) {
+        toast.error("ছবির সাইজ সর্বোচ্চ ২ মেগাবাইট হতে হবে!");
+        return;
+      }
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result);
+        toast.success("ছবি নির্বাচন করা হয়েছে!");
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleUpdate = (e) => {
     e.preventDefault();
     if (!name.trim()) {
@@ -38,18 +56,18 @@ export default function UpdateProfilePage() {
 
     setLoading(true);
     try {
-      const updatedUser = { name: name.trim(), email };
+      const updatedUser = { name: name.trim(), email, image };
       localStorage.setItem("bazardor_user", JSON.stringify(updatedUser));
 
-      // রেজিস্টার্ড লিস্টেও আপডেট করা
       const storedUsers = JSON.parse(localStorage.getItem("bazardor_registered_users") || "[]");
       const userIndex = storedUsers.findIndex((u) => u.email === email);
       if (userIndex !== -1) {
         storedUsers[userIndex].name = name.trim();
+        storedUsers[userIndex].image = image;
         localStorage.setItem("bazardor_registered_users", JSON.stringify(storedUsers));
       }
 
-      toast.success("তথ্য সফলভাবে আপডেট করা হয়েছে!");
+      toast.success("প্রোফাইল সফলভাবে আপডেট করা হয়েছে!");
       setTimeout(() => {
         router.push("/profile");
       }, 700);
@@ -62,8 +80,6 @@ export default function UpdateProfilePage() {
 
   return (
     <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
-      
-      {/* Back button */}
       <div>
         <Link
           href="/profile"
@@ -74,9 +90,7 @@ export default function UpdateProfilePage() {
         </Link>
       </div>
 
-      {/* Form Container */}
       <div className="bg-white border border-slate-200/90 rounded-3xl p-8 sm:p-10 shadow-sm space-y-6">
-        
         <div className="space-y-1.5 border-b border-slate-100 pb-5">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-bold">
             <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
@@ -86,11 +100,49 @@ export default function UpdateProfilePage() {
             ব্যবহারকারীর তথ্য আপডেট
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 font-medium">
-            আপনার অ্যাকাউন্টের নাম পরিবর্তন করে সংরক্ষণ করুন
+            আপনার নাম এবং প্রোফাইল ছবি পরিবর্তন করুন
           </p>
         </div>
 
-        <form onSubmit={handleUpdate} className="space-y-5">
+        <form onSubmit={handleUpdate} className="space-y-6">
+          
+          {/* প্রোফাইল ছবি আপলোড সেকশন */}
+          <div className="flex flex-col items-center justify-center p-6 bg-slate-50/70 border-2 border-dashed border-slate-200 rounded-2xl space-y-3">
+            <div className="relative group">
+              <div className="w-24 h-24 rounded-full overflow-hidden bg-emerald-100 text-emerald-800 border-4 border-white shadow-md flex items-center justify-center text-3xl font-black">
+                {image ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={image} alt="Profile" className="w-full h-full object-cover" />
+                ) : name ? (
+                  name.charAt(0).toUpperCase()
+                ) : (
+                  <User className="w-10 h-10 text-emerald-600" />
+                )}
+              </div>
+              <label
+                htmlFor="profile-upload"
+                className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-md cursor-pointer hover:bg-emerald-700 hover:scale-105 transition-all"
+                title="নতুন ছবি আপলোড করুন"
+              >
+                <Camera className="w-4 h-4" />
+              </label>
+              <input
+                id="profile-upload"
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="hidden"
+              />
+            </div>
+            <div className="text-center">
+              <label htmlFor="profile-upload" className="text-xs font-bold text-emerald-600 hover:underline cursor-pointer inline-flex items-center gap-1">
+                <UploadCloud className="w-4 h-4" />
+                <span>কম্পিউটার থেকে ছবি বেছে নিন</span>
+              </label>
+              <p className="text-[11px] text-slate-400 mt-0.5">PNG, JPG বা WebP (সর্বোচ্চ ২MB)</p>
+            </div>
+          </div>
+
           <div>
             <label className="block text-xs font-bold text-slate-700 mb-1.5">
               আপনার নাম (Name)
@@ -137,9 +189,7 @@ export default function UpdateProfilePage() {
             </button>
           </div>
         </form>
-
       </div>
-
     </div>
   );
 }

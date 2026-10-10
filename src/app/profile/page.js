@@ -36,8 +36,6 @@ export default function ProfilePage() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
-      
-      {/* Back button */}
       <div>
         <Link
           href="/"
@@ -48,14 +46,17 @@ export default function ProfilePage() {
         </Link>
       </div>
 
-      {/* Profile Card */}
       <div className="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-10 shadow-sm space-y-8">
-        
-        {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pb-8 border-b border-slate-100">
           <div className="flex items-center gap-5">
-            <div className="w-18 h-18 sm:w-20 sm:h-20 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-black text-3xl shadow-inner border border-emerald-200">
-              {user.name ? user.name.charAt(0).toUpperCase() : "U"}
+            {/* User Avatar: ছবি থাকলে ছবি, না থাকলে নামের আদ্যক্ষর */}
+            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden bg-emerald-100 text-emerald-800 flex items-center justify-center font-black text-3xl shadow-inner border border-emerald-200">
+              {user.image ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={user.image} alt="User Avatar" className="w-full h-full object-cover" />
+              ) : (
+                user.name ? user.name.charAt(0).toUpperCase() : "U"
+              )}
             </div>
             <div>
               <div className="flex items-center gap-2">
@@ -71,7 +72,6 @@ export default function ProfilePage() {
             </div>
           </div>
 
-          {/* Challenge C3: Update Information Button */}
           <Link
             href="/profile/update"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md shadow-emerald-600/20 hover:shadow-lg transition-all self-start sm:self-auto cursor-pointer"
@@ -81,7 +81,6 @@ export default function ProfilePage() {
           </Link>
         </div>
 
-        {/* User Details Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="bg-slate-50 rounded-2xl p-5 border border-slate-100 space-y-1">
             <div className="flex items-center gap-2 text-xs font-semibold text-slate-400">
@@ -100,7 +99,6 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/* Logout action */}
         <div className="pt-4 flex justify-end">
           <button
             onClick={handleLogout}
@@ -110,9 +108,7 @@ export default function ProfilePage() {
             <span>লগআউট করুন</span>
           </button>
         </div>
-
       </div>
-
     </div>
   );
 }

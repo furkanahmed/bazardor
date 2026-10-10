@@ -70,7 +70,7 @@ export default function Navbar() {
                   href="/profile"
                   className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-700 hover:text-emerald-700 bg-slate-100 hover:bg-emerald-50 rounded-lg transition-colors border border-slate-200"
                 >
-                  <User className="w-4 h-4 text-emerald-600" />
+                  {user.image ? <img src={user.image} alt="User" className="w-5 h-5 rounded-full object-cover" /> : <User className="w-4 h-4 text-emerald-600" />}
                   <span>{user.name || "আমার প্রোফাইল"}</span>
                 </Link>
                 <button
@@ -125,3 +125,4 @@ export default function Navbar() {
     </header>
   );
 }
+
