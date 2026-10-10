@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Local private files
+agent.md
+Bazardor _ Assignment-07/
+*.fig
+*.penpot
+gitpushComments.txt
