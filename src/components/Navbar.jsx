@@ -30,7 +30,7 @@ export default function Navbar() {
     window.location.href = "/";
   };
 
-  const navLinks = [
+    const navLinks = [
     { name: "হোম", href: "/" },
     { name: "চাল", href: "/category/chal" },
     { name: "ডাল", href: "/category/dal" },
@@ -38,8 +38,10 @@ export default function Navbar() {
     { name: "সবজি", href: "/category/sobji" },
     { name: "মাছ", href: "/category/mach" },
     { name: "মাংস", href: "/category/mangsho" },
-    { name: "মসলা", href: "/category/moshla" },
+    { name: "ডিম-দুধ", href: "/category/dim-dui" },
+    { name: "মসলা", href: "/category/mosla" },
   ];
+
 
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-emerald-100 shadow-xs">
