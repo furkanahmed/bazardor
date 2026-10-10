@@ -19,18 +19,15 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="bn">
-      <body className={`${hindSiliguri.className} antialiased bg-slate-50 text-slate-800 min-h-screen flex flex-col`}>
+      <body className={`${hindSiliguri.className} antialiased bg-white text-[#1D271F] min-h-screen flex flex-col`}>
         <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
-        {/* টপ লেআউট: নভবার ও লাইভ প্রাইস টিকার */}
         <Navbar />
         <PriceTicker />
 
-        {/* মেইন পেজ কনটেন্ট */}
         <main className="flex-1">
           {children}
         </main>
 
-        {/* ফুটার */}
         <Footer />
       </body>
     </html>

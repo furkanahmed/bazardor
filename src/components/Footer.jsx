@@ -26,7 +26,7 @@ export default function Footer() {
 
         {/* Bottom copyright */}
         <div className="mt-6 pt-6 border-t border-slate-800/80 text-center text-xs text-slate-500">
-          © {new Date().getFullYear()} বাজার দর। সর্বস্বত্ব সংরক্ষিত।
+          © ২০২৬ বাজার দর। সর্বস্বত্ব সংরক্ষিত।
         </div>
       </div>
     </footer>
