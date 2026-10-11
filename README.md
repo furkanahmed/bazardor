@@ -6,7 +6,7 @@ A modern and responsive web application designed to track and compare daily esse
 
 ## 🌐 Live URL & Repository
 
-- **Live Demo**: https://bazardor-delta.vercel.app/
+- **Live Demo**: https://bazardor2-gilt.vercel.app/
 - **GitHub Repository**: https://github.com/furkanahmed/bazardor.git
 
 ---
