@@ -18,6 +18,7 @@ import {
   Loader2,
   ShieldAlert,
 } from "lucide-react";
+import { API_BASE_URL } from "@/lib/api";
 
 function ProductDetailsContent() {
   const params = useParams();
@@ -43,12 +44,15 @@ function ProductDetailsContent() {
   useEffect(() => {
     if (!authChecked || !slug) return;
 
-    fetch(`https://api.api-store.workers.dev/api/bazardor/products/${slug}`)
+    fetch(`${API_BASE_URL}/products?slug=${slug}`)
       .then((res) => res.json())
       .then((data) => {
         // সিঙ্গেল অবজেক্ট অথবা অ্যারে হতে পারে
         if (data && !data.error) {
-          setProduct(Array.isArray(data) ? data[0] : data);
+          const item = Array.isArray(data) ? data[0] : data;
+          if (item) {
+            setProduct(item);
+          }
         }
         setLoading(false);
       })

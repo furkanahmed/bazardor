@@ -19,7 +19,7 @@ A modern and responsive web application designed to track and compare daily esse
 - **Authentication**: BetterAuth client implementation with Protected Route guards
 - **Icons**: [Lucide React](https://lucide.dev/)
 - **Notifications**: [React Hot Toast](https://react-hot-toast.com/)
-- **Data Source**: Live RESTful API (Cloudflare Workers)
+- **Data Source**: Live RESTful API (Programming Hero Open API)
 
 ---
 

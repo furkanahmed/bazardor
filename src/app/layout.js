@@ -15,6 +15,12 @@ const hindSiliguri = Hind_Siliguri({
 export const metadata = {
   title: "বাজার দর — নিত্যপ্রয়োজনীয় পণ্যের বাজারদর",
   description: "বাংলাদেশি নিত্যপ্রয়োজনীয় পণ্যের সঠিক বাজার দর ট্র্যাকিং ও তুলনা প্ল্যাটফর্ম।",
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+  },
 };
 
 export default function RootLayout({ children }) {

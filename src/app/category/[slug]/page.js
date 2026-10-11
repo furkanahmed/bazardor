@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
 import { ChevronDown, ArrowLeft, AlertCircle, ShoppingBag, Loader2 } from "lucide-react";
+import { API_BASE_URL } from "@/lib/api";
 
 function CategoryContent() {
   const params = useParams();
@@ -30,7 +31,7 @@ function CategoryContent() {
     if (!slug) return;
     setLoading(true);
 
-    fetch(`https://api.api-store.workers.dev/api/bazardor/products?category=${slug}`)
+    fetch(`${API_BASE_URL}/products?category=${slug}`)
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) {
@@ -115,17 +116,21 @@ function CategoryContent() {
           {[...Array(8)].map((_, i) => (
             <div
               key={i}
-              className="bg-white rounded-2xl p-5 border border-slate-100 shadow-xs space-y-4 animate-pulse"
+              className="bg-white rounded-2xl p-4 border border-slate-100 shadow-xs flex flex-col justify-between min-h-[138px] animate-pulse"
             >
-              <div className="flex justify-between items-center">
-                <div className="w-12 h-12 bg-slate-200 rounded-2xl" />
-                <div className="w-16 h-6 bg-slate-200 rounded-full" />
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-slate-200 rounded-xl shrink-0" />
+                <div className="flex-1 space-y-2">
+                  <div className="h-4 bg-slate-200 rounded-md w-3/4" />
+                  <div className="h-3 bg-slate-200 rounded-md w-1/2" />
+                </div>
               </div>
-              <div className="h-5 bg-slate-200 rounded-md w-3/4" />
-              <div className="h-3 bg-slate-200 rounded-md w-1/3" />
-              <div className="pt-4 border-t border-slate-100 flex justify-between items-center">
-                <div className="h-6 bg-slate-200 rounded-md w-1/2" />
-                <div className="w-8 h-8 bg-slate-200 rounded-full" />
+              <div className="flex justify-between items-end mt-3 pt-2">
+                <div className="space-y-1.5 w-1/2">
+                  <div className="h-2.5 bg-slate-200 rounded w-1/2" />
+                  <div className="h-5 bg-slate-200 rounded w-3/4" />
+                </div>
+                <div className="w-14 h-6 bg-slate-200 rounded-md" />
               </div>
             </div>
           ))}

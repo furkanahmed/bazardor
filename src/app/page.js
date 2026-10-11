@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import ProductCard from "@/components/ProductCard";
 import { ArrowDownCircle, Sparkles, TrendingUp, TrendingDown, LayoutGrid, Loader2 } from "lucide-react";
+import { API_BASE_URL } from "@/lib/api";
 
 export default function HomePage() {
   const [products, setProducts] = useState([]);
@@ -11,7 +12,7 @@ export default function HomePage() {
 
   useEffect(() => {
     // Fetch live product list from API
-    fetch("https://api.api-store.workers.dev/api/bazardor/products")
+    fetch(`${API_BASE_URL}/products`)
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) {
@@ -93,9 +94,30 @@ export default function HomePage() {
 
       {/* Loading Skeleton */}
       {loading ? (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center space-y-4">
-          <Loader2 className="w-10 h-10 text-emerald-600 animate-spin mx-auto" />
-          <p className="text-slate-500 font-medium text-sm">বাজারের হালনাগাদ তথ্য লোড হচ্ছে...</p>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+            {[...Array(8)].map((_, i) => (
+              <div
+                key={i}
+                className="bg-white rounded-2xl p-4 border border-slate-100 shadow-xs flex flex-col justify-between min-h-[138px] animate-pulse"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-slate-200 rounded-xl shrink-0" />
+                  <div className="flex-1 space-y-2">
+                    <div className="h-4 bg-slate-200 rounded-md w-3/4" />
+                    <div className="h-3 bg-slate-200 rounded-md w-1/2" />
+                  </div>
+                </div>
+                <div className="flex justify-between items-end mt-3 pt-2">
+                  <div className="space-y-1.5 w-1/2">
+                    <div className="h-2.5 bg-slate-200 rounded w-1/2" />
+                    <div className="h-5 bg-slate-200 rounded w-3/4" />
+                  </div>
+                  <div className="w-14 h-6 bg-slate-200 rounded-md" />
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       ) : (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">

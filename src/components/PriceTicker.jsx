@@ -3,12 +3,13 @@
 import { useEffect, useState } from "react";
 import { toBnDigit } from "@/lib/utils";
 import { TrendingUp, TrendingDown, Minus } from "lucide-react";
+import { API_BASE_URL } from "@/lib/api";
 
 export default function PriceTicker() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch("https://api.api-store.workers.dev/api/bazardor/products")
+    fetch(`${API_BASE_URL}/products`)
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) {

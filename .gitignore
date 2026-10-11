@@ -42,6 +42,9 @@ next-env.d.ts
 
 # Local private files
 Bazardor _ Assignment-07/
+assets/
 *.fig
 *.penpot
 gitpushComments.txt
+agent.md
+README-Req.md
