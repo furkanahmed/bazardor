@@ -20,7 +20,7 @@ export default function ProductCard({ product }) {
 
   return (
     <Link
-      href={`/product/${product.id || product.slug}`}
+      href={`/product/${product.slug || product.id}`}
       className="group bg-white rounded-2xl p-4 sm:p-4.5 border border-slate-200/90 hover:border-emerald-500 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between min-h-[138px]"
     >
       {/* Top Row: Emoji Icon + Title + Unit */}

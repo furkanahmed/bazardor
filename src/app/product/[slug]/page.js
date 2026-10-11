@@ -44,17 +44,36 @@ function ProductDetailsContent() {
   useEffect(() => {
     if (!authChecked || !slug) return;
 
-    fetch(`${API_BASE_URL}/products?slug=${slug}`)
+    const isNumericId = !isNaN(slug);
+    const endpoint = isNumericId
+      ? `${API_BASE_URL}/products?id=${slug}`
+      : `${API_BASE_URL}/products?slug=${slug}`;
+
+    fetch(endpoint)
       .then((res) => res.json())
       .then((data) => {
-        // সিঙ্গেল অবজেক্ট অথবা অ্যারে হতে পারে
         if (data && !data.error) {
           const item = Array.isArray(data) ? data[0] : data;
           if (item) {
             setProduct(item);
+            setLoading(false);
+            return;
           }
         }
-        setLoading(false);
+        // Fallback: If not found by query param, search in all products
+        return fetch(`${API_BASE_URL}/products`)
+          .then((res) => res.json())
+          .then((allData) => {
+            if (Array.isArray(allData)) {
+              const matched = allData.find(
+                (p) => String(p.id) === String(slug) || p.slug === slug
+              );
+              if (matched) {
+                setProduct(matched);
+              }
+            }
+            setLoading(false);
+          });
       })
       .catch((err) => {
         console.error("Error fetching product details:", err);
