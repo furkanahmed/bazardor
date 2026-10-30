@@ -27,6 +27,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="bn">
       <body className={`${hindSiliguri.className} antialiased bg-white text-[#1D271F] min-h-screen flex flex-col`}>
+        {/* Netlify HUD neutralizer */}
+        <div id="nl-badge-frame" style={{ display: "none" }} />
+        <div id="nl-hud-frame" style={{ display: "none" }} />
+
         <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
         
         {/* Suspense দিয়ে র‍্যাপ করায় usePathname আর এরর দেবে না */}
