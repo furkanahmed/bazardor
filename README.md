@@ -60,6 +60,18 @@ With an intuitive Bengali-first user interface and authentic typography, users c
 
 ---
 
+## 💡 Key Challenges Faced & How I Solved Them
+
+1. **Bengali Numeral Parsing for Dynamic Sorting:**
+   - *Challenge:* Commodity prices fetched from the API contained Bengali digits (e.g. `১২০ টাকা/কেজি`). Standard JavaScript `.sort()` treated them as string character codes rather than numeric values, producing incorrect sort orders.
+   - *Solution:* Developed a conversion utility using character map replacement (`toEnglishDigits`) and regular expressions to extract raw numerical values, enabling accurate ascending and descending arithmetic sorting.
+
+2. **Next.js Hydration & Protected Route Guards:**
+   - *Challenge:* Dynamic product routes (`/product/[slug]`) and URL search params threw client hydration and `usePathname` warnings during server rendering when unauthenticated users accessed protected pages.
+   - *Solution:* Wrapped client components with Next.js `<Suspense>` boundaries and orchestrated authenticated session guards with BetterAuth client hooks to gracefully redirect unauthorized guests without flashing protected content.
+
+---
+
 ## 📦 Key Dependencies
 
 - `next`: `^16.4.0`
